@@ -73,8 +73,17 @@ body {
   padding: 0;
 }
 
+.list a {
+  text-decoration: none;
+}
+
+.list a:hover {
+  color: red;
+}
+
 .list .active {
   font-weight: bold;
+  color: green;
 }
 
 .list-horizontal li {

@@ -1,7 +1,7 @@
 {
-  "name": "Miniproject",
+  "name": "miniproject",
   "version": "1.0.0",
-  "description": "Final task",
+  "description": "Kodilla project task runner",
   "main": "index.js",
   "scripts": {
     "init-project": "npm install && npm-run-all init:*",
@@ -20,7 +20,7 @@
     "watch:sassprefixer": "onchange sass/*.scss -- npm run build-dev"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ryszard",
   "license": "ISC",
   "devDependencies": {
     "autoprefixer-cli": "^1.0.0",
@@ -33,6 +33,18 @@
     "onchange": "^6.1.0"
   },
   "dependencies": {
+    "sass": "^1.23.6",
     "superagent": "^5.1.0"
-  }
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryszard-glegola-learning/javascript-blog.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ryszard-glegola-learning/javascript-blog/issues"
+  },
+  "homepage": "https://github.com/ryszard-glegola-learning/javascript-blog#readme"
 }

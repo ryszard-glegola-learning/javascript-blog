@@ -80,8 +80,15 @@ body {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  a {
+    text-decoration: none;
+    &:hover {
+      color: red;
+    };
+  }
   .active {
     font-weight: bold;
+    color: green;
   }
 }
 
