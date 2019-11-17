@@ -14,21 +14,27 @@ const titleClickHandler = function(event){
 	const clickedElement = this;
     console.log('clickedElement:',clickedElement);
     clickedElement.classList.add('active');
-    console.log('Article link' + clickedElement + ' is now active!');  // Do wykomentowania
+    console.log('Article link ' + clickedElement + ' is now active!');  // Do wykomentowania
 
   /* [DONE] remove class 'active' from all articles */
 
 	const activeArticles = document.querySelectorAll('.posts article.active');
 	for(let activeArticle of activeArticles){
 	  activeArticle.classList.remove('active');
-	  console.log('Article deactivated!',activeArticle);
+	  // console.log('Article deactivated!',activeArticle);
 	}  
 
-  /* get 'href' attribute from the clicked link */
+  /* [DONE] get 'href' attribute from the clicked link */
+
+  	const hrefAttributeClicked = clickedElement.getAttribute('href');
 
   /* find the correct article using the selector (value of 'href' attribute) */
 
+  	const theArticleIamLookingFor = document.querySelector(hrefAttributeClicked);
+
   /* add class 'active' to the correct article */
+
+   	theArticleIamLookingFor.classList.add('active');
 
 }
 
