@@ -12,20 +12,15 @@
 		  /* [DONE] add class 'active' to the clicked link */
 		    console.log('clickedElement:',clickedElement);
 		    clickedElement.classList.add('active');
-		    // console.log('Article link' + clickedElement + ' is now active!');  // Do wykomentowania
 
 		  /* [DONE] remove class 'active' from all articles */
-		  	// console.log('Any articles to deactivate?');
 			const activeArticles = document.querySelectorAll('.posts article.active');
 			for(let activeArticle of activeArticles){
 			  activeArticle.classList.remove('active');
-			  // console.log('Article deactivated!',activeArticle);
 			}  
 
 		  /* [DONE] get 'href' attribute from the clicked link */
-		 //  	console.log('Tip: clickedElement is ',clickedElement);
 		  	const hrefAttributeClicked = clickedElement.getAttribute('href');
-		 // 	console.log('hrefAttributeClicked is ',hrefAttributeClicked);
 
 		  /* [DONE] find the correct article using the selector (value of 'href' attribute) */
 		  	const targetArticle = document.querySelector(hrefAttributeClicked)
@@ -59,7 +54,6 @@
 
 			/* [DONE] get the article id */
 			  	const articleId = article.getAttribute('id');
-			  	// console.log('Article id ' + articleId + ' is: ',article);  
 
 			/* [DONE] find the title element */
 			/* [DONE] ... and get the title from the title element */
@@ -69,13 +63,12 @@
 				const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
 				console.log('linkHTML ' + articleId + ' is ' + linkHTML);
 
-			/* [IN PROGRESS] insert link into titleList */
+			/* [DONE] insert link into titleList */
 				html = html + linkHTML;
 			}
 
 		titleList.innerHTML = html;
 		const links = document.querySelectorAll('.titles a');
-		console.log('Co zawiera links: ',links); // Debugging pod koniec zadania
 
 		for(let link of links){
 			link.addEventListener('click', titleClickHandler);
