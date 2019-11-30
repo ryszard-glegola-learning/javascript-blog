@@ -3,7 +3,11 @@
 /* Variables */
 
 $color-light: #fff;
-$color-dark: #444;
+$color-dark: #333; // changed for the dark theme
+$color-medium: #666; // added for the dark theme
+$color-links-light: #ddd; // added for the dark theme
+$color-links-dark: #aaa; // added for the dark theme
+$color-links-active: magenta; // added for the dark theme
 
 $font-logo: 'Sacramento', cursive;
 $font-header: 'Oswald', sans-serif;
@@ -16,13 +20,26 @@ $font-text: 'Source Sans Pro', sans-serif;
 }
 
 body {
-  background: $color-light;
+  background: $color-dark;
   font-family: $font-text;
-  color: $color-dark;
+  color: $color-light;
   font-weight: 300;
   font-size: 16px;
   line-height: 1.7;
 }
+
+a {
+  color: $color-links-light;
+}
+
+a:active, a:hover {
+  color: $color-links-active;
+}
+
+a:visited {
+  color: $color-links-dark;
+}
+
 
 .container {
   max-width: 1140px;
@@ -37,7 +54,7 @@ body {
   span {
     text-transform: none;
     font-weight: 400;
-    color: lighten($color-dark, 20%);
+    color: lighten($color-light, 20%);
   }
 }
 
@@ -57,10 +74,10 @@ body {
 }
 
 .sidebar, .posts {
-  background: $color-light;
+  background: $color-dark;
   margin-right: 10px;
   padding: 40px;
-  border: 1px solid $color-dark;
+  border: 1px solid $color-medium;
   border-radius: 5px;
 }
 

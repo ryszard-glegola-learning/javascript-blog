@@ -6,12 +6,24 @@
 }
 
 body {
-  background: #fff;
+  background: #333;
   font-family: "Source Sans Pro", sans-serif;
-  color: #444;
+  color: #fff;
   font-weight: 300;
   font-size: 16px;
   line-height: 1.7;
+}
+
+a {
+  color: #ddd;
+}
+
+a:active, a:hover {
+  color: magenta;
+}
+
+a:visited {
+  color: #aaa;
 }
 
 .container {
@@ -29,7 +41,7 @@ body {
 .section-title span {
   text-transform: none;
   font-weight: 400;
-  color: #777777;
+  color: white;
 }
 
 /* Layout */
@@ -50,10 +62,10 @@ body {
 }
 
 .sidebar, .posts {
-  background: #fff;
+  background: #333;
   margin-right: 10px;
   padding: 40px;
-  border: 1px solid #444;
+  border: 1px solid #666;
   border-radius: 5px;
 }
 
