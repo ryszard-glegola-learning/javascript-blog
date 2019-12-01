@@ -33,6 +33,7 @@
     "onchange": "^6.1.0"
   },
   "dependencies": {
+    "eslint": "^6.7.2",
     "sass": "^1.23.6",
     "superagent": "^5.1.0"
   },

@@ -1,4 +1,5 @@
-{
+{	
+	const osobnaStala = 'mojtest';
 	const titleClickHandler = function(event){
 		event.preventDefault();
 		const clickedElement = this;
@@ -46,7 +47,7 @@
 		  	const titleList = document.querySelector(optTitleListSelector);
 			titleList.innerHTML = ''; 
 
-  			let html = '';
+  			let articlesListHTML = document.getElementById('articles-list');
 			
 	  	/* [IN PROGRESS] for each article */
 			const articles = document.querySelectorAll(optArticleSelector);
@@ -64,10 +65,14 @@
 				console.log('linkHTML ' + articleId + ' is ' + linkHTML);
 
 			/* [DONE] insert link into titleList */
-				html = html + linkHTML;
+				articlesListHTML.insertAdjacentHTML('beforeend', linkHTML);
+				console.log(articleId + ' articlesListHTML is ', articlesListHTML);
+				console.log(articleId + ' titleList.innerHTML is ', titleList.innerHTML);
+				console.log('## LOOP END ##');
 			}
 
-		titleList.innerHTML = html;
+		
+
 		const links = document.querySelectorAll('.titles a');
 
 		for(let link of links){
