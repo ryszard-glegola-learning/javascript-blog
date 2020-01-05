@@ -103,7 +103,7 @@ a:visited {
 }
 
 /* Authors */
-.authors li {
+.side li {
   margin-bottom: 12px;
 }
 
@@ -118,6 +118,10 @@ a:visited {
 
 .post-author {
   font-style: italic;
+}
+
+.post-content {
+  font-weight: normal;
 }
 
 .post-tags {
