@@ -88,9 +88,30 @@
 
   /* ################ TAGS ################ */
 
+  function calculateTagsParams(allTagsObject) {
+    const outputMinMaxObject = {min: null, max: null};
+    for (let tagKey in allTagsObject){
+      const tagCount = allTagsObject[tagKey];
+      // console.log('tagKey of allTagsObject: ',tagKey,'(',tagCount,')');
+      if(outputMinMaxObject.min == null && outputMinMaxObject.max == null) {
+        outputMinMaxObject.min = tagCount;
+        outputMinMaxObject.max = tagCount;
+      }
+      // szukamy min i max
+      if(tagCount < outputMinMaxObject.min){
+        outputMinMaxObject.min = tagCount;
+      }
+      if(tagCount > outputMinMaxObject.max){
+        outputMinMaxObject.max = tagCount;
+      }
+    }
+    console.log('min: ',outputMinMaxObject.min,', max: ',outputMinMaxObject.max);
+  }
+
+
   function generateTags(){
 
-    /* [NEW] create a new variable allTags with an empty object */
+    /* [DONE IN TASK 2] create a new variable allTags with an empty object */
     let allTags = {};
 
     /* [DONE] find all articles */
@@ -119,9 +140,9 @@
         /* [DONE USING insertAdjacentHTML] insert HTML of all the links into the tags wrapper */
         tagsWrapper.insertAdjacentHTML('beforeend', tagHTML);
 
-        /* [NEW] check if this link is NOT already in allTags */
+        /* [DONE IN TASK 2] check if this link is NOT already in allTags */
         if(!allTags.hasOwnProperty(tag)){
-          /* [NEW] add generated code to allTags array */
+          /* [DONE IN TASK 2] add generated code to allTags array */
           allTags[tag] = 1;
           } else {
           allTags[tag]++;
@@ -132,18 +153,25 @@
       /* [DONE] END LOOP: for every article: */
     }
 
-    /* [NEW] find list of tags in right column */
+    /* [DONE IN TASK 2] find list of tags in right column */
     const tagList = document.querySelector('.tags');
 
-    /* [NEW] create variable for all links HTML code */
+    /* [NEW] find list of tags in right column */
+    console.log('Obiekt allTags: ',allTags);
+    console.log('### Pętla for-in po allTags: ');
+    const tagsParams = calculateTagsParams(allTags);
+    // console.log('tagsParams: ',tagsParams);
+    console.log('### koniec pętli po allTags ###');
+
+    /* [DONE IN TASK 2] create variable for all links HTML code */
     let allTagsHTML = '';
-    /* [NEW] START LOOP: for each tag in the allTags object */
+    /* [DONE IN TASK 2] START LOOP: for each tag in the allTags object */
     for(let tag in allTags){
-      /* [NEW] generate code of a long and add it to allTags */
+      /* [DONE IN TASK 2] generate code of a long and add it to allTags */
       allTagsHTML += '<li><a href="#tag-' + tag + '">' + tag + '</a> (' + allTags[tag] + ') </li>'
-    /* [NEW] END LOOP: for each tag in the allTags object */
+    /* [DONE IN TASK 2] END LOOP: for each tag in the allTags object */
     }
-    /* [NEW] add html from allTagsHTML to tagList */
+    /* [DONE IN TASK 2] add html from allTagsHTML to tagList */
     tagList.innerHTML = allTagsHTML;
   }
 
@@ -179,13 +207,11 @@
   }
 
 
-  function addClickListenersToTags(){
+  function addClickListenersToArticleTags(){
     /* find all links to tags under articles */
     const links = document.querySelectorAll(optArticleTagSelector);
-
    /* START LOOP: for each link */
     for(let link of links){
-
   /* add tagClickHandler as event listener for that link */
       link.addEventListener('click', tagClickHandler);
     /* END LOOP: for each link */
@@ -196,10 +222,8 @@
   function addClickListenersToListTags(){
     /* find all links to tags under articles */
     const links = document.querySelectorAll(optListTagSelector);
-
    /* START LOOP: for each link */
     for(let link of links){
-
   /* add tagClickHandler as event listener for that link */
       link.addEventListener('click', tagClickHandler);
     /* END LOOP: for each link */
@@ -208,7 +232,7 @@
 
 
   generateTags();
-  addClickListenersToTags();
+  addClickListenersToArticleTags();
   addClickListenersToListTags();
 
 
@@ -221,7 +245,7 @@
 
   function generateAuthors(){
 
-    /* [NEW] create a new variable allAuthors with an empty object */
+    /* [DONE IN TASK 2] create a new variable allAuthors with an empty object */
     let allAuthors = {};
 
     /* [DONE] find all articles */
@@ -240,9 +264,9 @@
       const articleAuthorNoSpace = articleAuthor.replace(' ', '_');
       authorWrapper.innerHTML = '<a href="#author-' + articleAuthorNoSpace + '">' + articleAuthor + '</a>';
 
-      /* [NEW] check if this link is NOT already in allTags */
+      /* [DONE IN TASK 2] check if this link is NOT already in allTags */
       if(!allAuthors.hasOwnProperty(articleAuthorNoSpace)){
-        /* [NEW] add generated code to allTags array */
+        /* [DONE IN TASK 2] add generated code to allTags array */
         allAuthors[articleAuthorNoSpace] = 1;
         } else {
         allAuthors[articleAuthorNoSpace]++;
@@ -251,19 +275,19 @@
       /* [DONE] END LOOP: for every article: */
     }
 
-    /* [NEW] find list of authors in right column */
+    /* [DONE IN TASK 2] find list of authors in right column */
     const authorList = document.querySelector('.authors');
 
-    /* [NEW] create variable for all links HTML code */
+    /* [DONE IN TASK 2] create variable for all links HTML code */
     let allAuthorsHTML = '';
-    /* [NEW] START LOOP: for each authors in the allTags object */
+    /* [DONE IN TASK 2] START LOOP: for each authors in the allTags object */
     for(let author in allAuthors){
-      /* [NEW] generate code of a long and add it to allTags */
+      /* [DONE IN TASK 2] generate code of a long and add it to allTags */
       const authorWithSpace = author.replace('_', ' ');
       allAuthorsHTML += '<li><a href="#author-' + author + '">' + authorWithSpace + '</a> (' + allAuthors[author] + ') </li>'
-      /* [NEW] END LOOP: for each authors in the allTags object */
+      /* [DONE IN TASK 2] END LOOP: for each authors in the allTags object */
       }
-    /* [NEW] add html from allAuthorsHTML to authorList */
+    /* [DONE IN TASK 2] add html from allAuthorsHTML to authorList */
     authorList.innerHTML = allAuthorsHTML;
   }
 
