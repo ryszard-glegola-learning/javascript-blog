@@ -104,7 +104,11 @@ a:visited {
 
 /* Authors */
 .side li {
-  margin-bottom: 2px;
+  margin: 0 3px;
+}
+
+.side.tags li {
+  display: inline-block;
 }
 
 /* Post */
@@ -133,23 +137,23 @@ a:visited {
   margin: 0 10px 0 0;
 }
 
-.post-tags .tag-size-1 {
-  font-size: 10px;
+.tag-size-1 {
+  font-size: 1em;
 }
 
-.post-tags .tag-size-2 {
-  font-size: 12px;
+.tag-size-2 {
+  font-size: 1.2em;
 }
 
-.post-tags .tag-size-3 {
-  font-size: 13px;
+.tag-size-3 {
+  font-size: 1.4em;
 }
 
-.post-tags .tag-size-4 {
-  font-size: 14px;
+.tag-size-4 {
+  font-size: 1.8em;
 }
 
-.post-tags .tag-size-5 {
-  font-size: 15px;
+.tag-size-5 {
+  font-size: 2.0em;
 }
 /*# sourceMappingURL=style.css.map */

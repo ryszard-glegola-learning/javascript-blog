@@ -11,10 +11,9 @@
 
     optArticleAuthorSelector = '.post-author',   // do tego dodalismy a
     optArticleAuthorLinkSelector = '.post-author a', // uzyskujac to
-    optListAuthorSelector = '.authors a';
-
-
-
+    optListAuthorSelector = '.authors a',
+    optCloudClassCount = 5,
+    optCloudClassPrefix = "tag-size";
 
 
   /* ################ TITLES ################ */
@@ -85,14 +84,13 @@
 
 
 
-
   /* ################ TAGS ################ */
 
   function calculateTagsParams(allTagsObject) {
     const outputMinMaxObject = {min: null, max: null};
     for (let tagKey in allTagsObject){
       const tagCount = allTagsObject[tagKey];
-      // console.log('tagKey of allTagsObject: ',tagKey,'(',tagCount,')');
+
       if(outputMinMaxObject.min == null && outputMinMaxObject.max == null) {
         outputMinMaxObject.min = tagCount;
         outputMinMaxObject.max = tagCount;
@@ -106,6 +104,17 @@
       }
     }
     console.log('min: ',outputMinMaxObject.min,', max: ',outputMinMaxObject.max);
+    return outputMinMaxObject; // Ha ha, bingo
+  }
+
+
+  function calculateTagClass(count, params){
+    const tagCountSpan = params.max - params.min; // rozrzut liczebności tagów
+    const tagClassIncrement = optCloudClassCount/tagCountSpan;
+    let tagClassNo = Math.floor(count * tagClassIncrement);
+    // if (tagClassNo == 0) {tagClassNo = 1} // - zamiast tej liniku short if niżej;
+    const tagClass = optCloudClassPrefix + '-' + (tagClassNo ? tagClassNo : 1);
+    return tagClass;
   }
 
 
@@ -155,20 +164,17 @@
 
     /* [DONE IN TASK 2] find list of tags in right column */
     const tagList = document.querySelector('.tags');
-
     /* [NEW] find list of tags in right column */
-    console.log('Obiekt allTags: ',allTags);
-    console.log('### Pętla for-in po allTags: ');
     const tagsParams = calculateTagsParams(allTags);
-    // console.log('tagsParams: ',tagsParams);
-    console.log('### koniec pętli po allTags ###');
-
     /* [DONE IN TASK 2] create variable for all links HTML code */
     let allTagsHTML = '';
     /* [DONE IN TASK 2] START LOOP: for each tag in the allTags object */
     for(let tag in allTags){
-      /* [DONE IN TASK 2] generate code of a long and add it to allTags */
-      allTagsHTML += '<li><a href="#tag-' + tag + '">' + tag + '</a> (' + allTags[tag] + ') </li>'
+      /* [DONE IN TASK 2] generate code of a link and add it to allTags */
+      const tagClass = calculateTagClass(allTags[tag], tagsParams);
+      console.log('tagClass: ', tagClass);
+      const tagLinkHTML = '<li><a href="#tag-' + tag + '" class="' + tagClass + '">' + tag + '</a> ' + '(' + allTags[tag] + ')</li>';
+      allTagsHTML += tagLinkHTML;
     /* [DONE IN TASK 2] END LOOP: for each tag in the allTags object */
     }
     /* [DONE IN TASK 2] add html from allTagsHTML to tagList */
@@ -181,7 +187,6 @@
     event.preventDefault();
   /* [DONE] make new constant named "clickedElement" and give it the value of "this" */
     const clickedElement = this;
-    // debugger;
   /* [DONE] make a new constant "href" and read the attribute "href" of the clicked element */
     const href = clickedElement.getAttribute('href');
   /* [DONE] make a new constant "tag" and extract tag from the "href" constant */
@@ -234,8 +239,6 @@
   generateTags();
   addClickListenersToArticleTags();
   addClickListenersToListTags();
-
-
 
 
 
