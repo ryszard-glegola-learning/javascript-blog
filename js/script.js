@@ -40,8 +40,11 @@
 
   function showFilteredPostList() {
     let articlesListHeading = document.getElementById('articles-list-heading');
-    // console.log('articlesListHeading: ', articlesListHeading);
-    articlesListHeading.innerHTML = 'Filtered posts';
+    const activeAuthorLinksCheck = document.querySelectorAll('a.active[href^="#author-"]');
+    const activeTagLinksCheck = document.querySelectorAll('a.active[href^="#tag-"]');
+    console.log('Aktywne: ',activeTagLinksCheck,', ',activeAuthorLinksCheck);
+    if ((activeTagLinksCheck.length != 0) || (activeAuthorLinksCheck.length != 0)) {
+      articlesListHeading.innerHTML = 'Filtered posts';}
   }
 
   function titleClickHandler(event){
@@ -145,7 +148,7 @@
     let tagClassNo = (opts.tagSizes.count < Math.round(count * tagClassIncrement)) ? opts.tagSizes.count : Math.round(count * tagClassIncrement);
     // if (tagClassNo == 0) {tagClassNo = 1} // - zamiast tej linijki short if niżej;
     const tagClass = opts.tagSizes.classPrefix + '-' + (tagClassNo ? tagClassNo : 1);
-    console.log('tagClassNo: ', tagClassNo,tagClass,'\n ----------');
+    // console.log('tagClassNo: ', tagClassNo,tagClass,'\n ----------');
     return tagClass;
   }
 
