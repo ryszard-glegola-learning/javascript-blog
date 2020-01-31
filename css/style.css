@@ -138,7 +138,7 @@ a:visited {
 }
 
 .tag-size-1 {
-  font-size: 1em;
+  font-size: 1.0em;
 }
 
 .tag-size-2 {
@@ -150,10 +150,22 @@ a:visited {
 }
 
 .tag-size-4 {
-  font-size: 1.8em;
+  font-size: 1.6em;
 }
 
 .tag-size-5 {
+  font-size: 1.8em;
+}
+
+.tag-size-6 {
   font-size: 2.0em;
+}
+
+.tag-size-7 {
+  font-size: 2.2em;
+}
+
+.tag-size-8 {
+  font-size: 2.4em;
 }
 /*# sourceMappingURL=style.css.map */

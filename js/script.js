@@ -38,12 +38,11 @@
 
   /* ################ TITLES ################ */
 
-function showFilteredPostList() {
+  function showFilteredPostList() {
     let articlesListHeading = document.getElementById('articles-list-heading');
     // console.log('articlesListHeading: ', articlesListHeading);
     articlesListHeading.innerHTML = 'Filtered posts';
-}
-
+  }
 
   function titleClickHandler(event){
     event.preventDefault();
@@ -72,12 +71,12 @@ function showFilteredPostList() {
     /* [DONE] add class 'active' to the correct article */
     targetArticle.classList.add('active');
 
-    /* [NEW] */
-    showFilteredPostList()
+    /* [DONE] */
+    showFilteredPostList();
   }
 
   function generateTitleLinks(customSelector = ''){
-        /* [DONE] remove contents of titleList */
+    /* [DONE] remove contents of titleList */
     const titleList = document.querySelector(select.listOf.titles);
     titleList.innerHTML = '';
     let articlesListHTML = document.getElementById('articles-list');
@@ -105,7 +104,7 @@ function showFilteredPostList() {
     for(let link of links){
       link.addEventListener('click', titleClickHandler);
     }
-    /* [NEW] Add a restore full menu link */
+    /* [DONE] Add a restore full menu link */
     articlesListHTML.insertAdjacentHTML('beforeend', '<a href="/">Full list...</a>');
   }
 
@@ -134,7 +133,7 @@ function showFilteredPostList() {
         outputMinMaxObject.max = tagCount;
       }
     }
-    console.log('min: ',outputMinMaxObject.min,', max: ',outputMinMaxObject.max);
+    // console.log('min: ',outputMinMaxObject.min,', max: ',outputMinMaxObject.max);
     return outputMinMaxObject; // Ha ha, bingo
   }
 
@@ -142,15 +141,16 @@ function showFilteredPostList() {
   function calculateTagClass(count, params){
     const tagCountSpan = params.max - params.min; // rozrzut liczebności tagów
     const tagClassIncrement = opts.tagSizes.count/tagCountSpan;
-    let tagClassNo = Math.floor(count * tagClassIncrement);
-    // if (tagClassNo == 0) {tagClassNo = 1} // - zamiast tej liniku short if niżej;
+    // if (tagClassNo > opts.tagSizes.count) {tagClassNo = opts.tagSizes.count;}; // - zamiast tej linijki short if niżej;
+    let tagClassNo = (opts.tagSizes.count < Math.round(count * tagClassIncrement)) ? opts.tagSizes.count : Math.round(count * tagClassIncrement);
+    // if (tagClassNo == 0) {tagClassNo = 1} // - zamiast tej linijki short if niżej;
     const tagClass = opts.tagSizes.classPrefix + '-' + (tagClassNo ? tagClassNo : 1);
+    console.log('tagClassNo: ', tagClassNo,tagClass,'\n ----------');
     return tagClass;
   }
 
 
   function generateTags(){
-
     /* [DONE IN TASK 2] create a new variable allTags with an empty object */
     let allTags = {};
 
@@ -195,16 +195,27 @@ function showFilteredPostList() {
 
     /* [DONE IN TASK 2] find list of tags in right column */
     const tagList = document.querySelector('.tags');
-    /* [NEW] find list of tags in right column */
+    /* [DONE] find list of tags in right column */
     const tagsParams = calculateTagsParams(allTags);
     /* [DONE IN TASK 2] create variable for all links HTML code */
     let allTagsHTML = '';
+    /* [DONE] initialise sorting */
+    const tagsAndTheirCount = [];
+    function compareTagCounts(a, b){
+      return b.tagCount - a.tagCount;
+    }
     /* [DONE IN TASK 2] START LOOP: for each tag in the allTags object */
     for(let tag in allTags){
+      let tagAndItsCount = {tagName: tag, tagCount: allTags[tag]};
+      tagsAndTheirCount.push(tagAndItsCount);
+    }
+    tagsAndTheirCount.sort(compareTagCounts);
+    // console.log("tagsAndTheirCount: ", tagsAndTheirCount);
+    for(let tag in tagsAndTheirCount){
+      // console.log("tagsAndTheirCount[tag].tagName: ", tagsAndTheirCount[tag].tagName);
       /* [DONE IN TASK 2] generate code of a link and add it to allTags */
-      const tagClass = calculateTagClass(allTags[tag], tagsParams);
-      console.log('tagClass: ', tagClass);
-      const tagLinkHTML = '<li><a href="#tag-' + tag + '" class="' + tagClass + '">' + tag + '</a> ' + '(' + allTags[tag] + ')</li>';
+      const tagClass = calculateTagClass(allTags[tagsAndTheirCount[tag].tagName], tagsParams);
+      const tagLinkHTML = '<li><a href="#tag-' + tagsAndTheirCount[tag].tagName + '" class="' + tagClass + '">' + tagsAndTheirCount[tag].tagName + '</a></li>';
       allTagsHTML += tagLinkHTML;
     /* [DONE IN TASK 2] END LOOP: for each tag in the allTags object */
     }
@@ -240,8 +251,8 @@ function showFilteredPostList() {
     }
     /* execute function "generateTitleLinks" with article selector as argument */
     generateTitleLinks('[data-tags~="' + tag + '"]');
-    /* [NEW] */
-    showFilteredPostList()
+    /* [DONE] */
+    showFilteredPostList();
   }
 
 
@@ -344,8 +355,8 @@ function showFilteredPostList() {
     }
     /* execute function "generateTitleLinks" with article selector as argument */
     generateTitleLinks('[data-author="' + articleAuthor + '"]');
-    /* [NEW] */
-    showFilteredPostList()
+    /* [DONE] */
+    showFilteredPostList();
   }
 
 
@@ -368,11 +379,3 @@ function showFilteredPostList() {
   addClickListenersToAuthor(select.listOf.authorLink);
 }
 
-
-/*
-
-    let articlesListHeading = document.getElementById('articles-list-heading');
-    console.log('articlesListHeading: ', articlesListHeading);
-    articlesListHeading.innerHTML = 'Filtered posts';
-
-*/
