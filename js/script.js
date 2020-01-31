@@ -1,22 +1,49 @@
 {
 
-  /* script 'settings' in constants - good practice */
-  const optArticleSelector = '.post',
-    optTitleSelector = '.post-title',
-    optTitleListSelector = '.titles',
+  /* ################ SETTINGS ################ */
 
-    optArticleTagListSelector = '.post-tags .list',
-    optArticleTagSelector = '.post-tags .list a',
-    optListTagSelector = '.tags a',
+  const opts = {
+    tagSizes: {
+      count: 5,
+      classPrefix: 'tag-size',
+    },
+  };
 
-    optArticleAuthorSelector = '.post-author',   // do tego dodalismy a
-    optArticleAuthorLinkSelector = '.post-author a', // uzyskujac to
-    optListAuthorSelector = '.authors a',
-    optCloudClassCount = 5,
-    optCloudClassPrefix = 'tag-size';
+  const select = {
+    all: {
+      articles: '.post',
+      linksTo: {
+        tags: 'a[href^="#tag-"]',
+        authors: 'a[href^="#author-"]',
+      },
+    },
+    article: {
+      title: '.post-title',
+      tags: '.post-tags .list',
+      tagLink: '.post-tags .list a',
+      author: '.post-author',
+      authorLink: '.post-author a',
+    },
+    listOf: {
+      titles: '.titles',
+      tags: '.tags.list',
+      tagLink: '.tags a',
+      authors: '.authors.list',
+      authorLink: '.authors a',
+    },
+  };
+
+
 
 
   /* ################ TITLES ################ */
+
+function showFilteredPostList() {
+    let articlesListHeading = document.getElementById('articles-list-heading');
+    // console.log('articlesListHeading: ', articlesListHeading);
+    articlesListHeading.innerHTML = 'Filtered posts';
+}
+
 
   function titleClickHandler(event){
     event.preventDefault();
@@ -44,17 +71,19 @@
 
     /* [DONE] add class 'active' to the correct article */
     targetArticle.classList.add('active');
+
+    /* [NEW] */
+    showFilteredPostList()
   }
 
   function generateTitleLinks(customSelector = ''){
-
-    /* [DONE] remove contents of titleList */
-    const titleList = document.querySelector(optTitleListSelector);
+        /* [DONE] remove contents of titleList */
+    const titleList = document.querySelector(select.listOf.titles);
     titleList.innerHTML = '';
     let articlesListHTML = document.getElementById('articles-list');
 
     /* [DONE] for each article */
-    const articles = document.querySelectorAll(optArticleSelector + customSelector);
+    const articles = document.querySelectorAll(select.all.articles + customSelector);
     for(let article of articles){
 
       /* [DONE] get the article id */
@@ -62,7 +91,7 @@
 
       /* [DONE] find the title element */
       /* [DONE] ... and get the title from the title element */
-      const articleTitle = article.querySelector(optTitleSelector).innerHTML;
+      const articleTitle = article.querySelector(select.article.title).innerHTML;
 
       /* [DONE] create HTML of the link */
       const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
@@ -76,6 +105,8 @@
     for(let link of links){
       link.addEventListener('click', titleClickHandler);
     }
+    /* [NEW] Add a restore full menu link */
+    articlesListHTML.insertAdjacentHTML('beforeend', '<a href="/">Full list...</a>');
   }
 
   generateTitleLinks();
@@ -110,10 +141,10 @@
 
   function calculateTagClass(count, params){
     const tagCountSpan = params.max - params.min; // rozrzut liczebności tagów
-    const tagClassIncrement = optCloudClassCount/tagCountSpan;
+    const tagClassIncrement = opts.tagSizes.count/tagCountSpan;
     let tagClassNo = Math.floor(count * tagClassIncrement);
     // if (tagClassNo == 0) {tagClassNo = 1} // - zamiast tej liniku short if niżej;
-    const tagClass = optCloudClassPrefix + '-' + (tagClassNo ? tagClassNo : 1);
+    const tagClass = opts.tagSizes.classPrefix + '-' + (tagClassNo ? tagClassNo : 1);
     return tagClass;
   }
 
@@ -124,13 +155,13 @@
     let allTags = {};
 
     /* [DONE] find all articles */
-    const articles = document.querySelectorAll(optArticleSelector);
+    const articles = document.querySelectorAll(select.all.articles);
 
     /* [DONE] START LOOP: for every article: */
     for(let article of articles){
 
       /* [DONE] find tags wrapper */
-      const tagsWrapper = article.querySelector(optArticleTagListSelector);
+      const tagsWrapper = article.querySelector(select.article.tags);
 
       /* [DONE] make html variable with empty string */
       let tagHTML = '';
@@ -209,12 +240,14 @@
     }
     /* execute function "generateTitleLinks" with article selector as argument */
     generateTitleLinks('[data-tags~="' + tag + '"]');
+    /* [NEW] */
+    showFilteredPostList()
   }
 
 
   function addClickListenersToArticleTags(){
     /* find all links to tags under articles */
-    const links = document.querySelectorAll(optArticleTagSelector);
+    const links = document.querySelectorAll(select.article.tagLink);
     /* START LOOP: for each link */
     for(let link of links){
     /* add tagClickHandler as event listener for that link */
@@ -226,7 +259,7 @@
 
   function addClickListenersToListTags(){
     /* find all links to tags under articles */
-    const links = document.querySelectorAll(optListTagSelector);
+    const links = document.querySelectorAll(select.listOf.tagLink);
     /* START LOOP: for each link */
     for(let link of links){
     /* add tagClickHandler as event listener for that link */
@@ -250,11 +283,11 @@
     /* [DONE IN TASK 2] create a new variable allAuthors with an empty object */
     let allAuthors = {};
     /* [DONE] find all articles */
-    const articles = document.querySelectorAll(optArticleSelector);
+    const articles = document.querySelectorAll(select.all.articles);
     /* [DONE] START LOOP: for every article: */
     for(let article of articles){
       /* [DONE] find author wrapper */
-      const authorWrapper = article.querySelector(optArticleAuthorSelector);
+      const authorWrapper = article.querySelector(select.article.author);
       /* [DONE] get tags from data-authors attribute */
       const articleAuthor = article.getAttribute('data-author');
       /* [DONE] generate HTML of the link */
@@ -311,6 +344,8 @@
     }
     /* execute function "generateTitleLinks" with article selector as argument */
     generateTitleLinks('[data-author="' + articleAuthor + '"]');
+    /* [NEW] */
+    showFilteredPostList()
   }
 
 
@@ -329,6 +364,15 @@
 
 
   generateAuthors();
-  addClickListenersToAuthor(optArticleAuthorLinkSelector);
-  addClickListenersToAuthor(optListAuthorSelector);
+  addClickListenersToAuthor(select.article.authorLink);
+  addClickListenersToAuthor(select.listOf.authorLink);
 }
+
+
+/*
+
+    let articlesListHeading = document.getElementById('articles-list-heading');
+    console.log('articlesListHeading: ', articlesListHeading);
+    articlesListHeading.innerHTML = 'Filtered posts';
+
+*/
